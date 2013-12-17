@@ -10,13 +10,13 @@ class Dog
     @color = color
   end
 
-  def insert 
+  def insert_and_save 
     db.query("
       INSERT 
       INTO dogs (name, color)
       VALUES ('#{self.name}', '#{self.color}');
       ")
-      
+      self.id-self.db.last_id if self.db.last_id >0
   end
 
 
@@ -24,22 +24,22 @@ class Dog
     db.query("
       SELECT *
       FROM dogs
-      WHERE id = #{id}
+      WHERE id = #{id};
       ")
   end
 
   def update
     db.query("
       UPDATE dogs
-        SET name = '#{self.name}',
+        SET name = '#{self.name}'
         color = '#{self.color}'
-        WHERE id = #{self.id}
+        WHERE id = #{self.id};
       ")
   end
   def delete
     db.query("
       DELETE FROM dogs
-      WHERE id= '#{self.id};
+      WHERE id= #{self.id};
       ")
   end
   def self.db
