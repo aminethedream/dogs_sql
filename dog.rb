@@ -1,5 +1,6 @@
 require 'mysql2'
 require 'debugger'
+
 class Dog
   
   attr_accessor :name, :color, :id 
@@ -10,13 +11,12 @@ class Dog
     @color = color
   end
 
-  def insert_and_save 
+  def insertandsave 
     db.query("
-      INSERT 
-      INTO dogs (name, color)
+      INSERT INTO dogs (name, color)
       VALUES ('#{self.name}', '#{self.color}');
       ")
-      self.id-self.db.last_id if self.db.last_id >0
+      self.id=self.db.last_id if self.db.last_id >0
   end
 
 
@@ -36,12 +36,30 @@ class Dog
         WHERE id = #{self.id};
       ")
   end
+  
   def delete
     db.query("
       DELETE FROM dogs
       WHERE id= #{self.id};
       ")
   end
+
+  def find_by_name
+    db.query("
+      SELECT *
+      FROM dogs
+      WHERE name = '#{name}'
+      ")
+  end
+
+  def find_by_color
+    db.query("
+      SELECT * 
+      FROM dogs
+      WHERE  color = '#{color}'
+      ")
+  end
+
   def self.db
     @@db
   end
@@ -54,13 +72,13 @@ class Dog
 end
  
 dog1 = Dog.new('awesome', 'lightbrown')
-dog1.insert
+
 dog1.update
-debugger
+dog1.insertandsave
 
 dog1.delete
 dog = Dog.find(1)
-debugger
+
 puts 'hi'
  
   # color, name, id
