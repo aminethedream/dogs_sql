@@ -29,6 +29,11 @@ class Dog
   end
 
   def update
+    db.query("
+      UPDATE dogs
+        SET name = '#{self.name}',
+        color = '#{self.color}'
+      ")
   
   end
 
