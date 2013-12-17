@@ -33,10 +33,15 @@ class Dog
       UPDATE dogs
         SET name = '#{self.name}',
         color = '#{self.color}'
+        WHERE id = #{self.id}
       ")
-  
   end
-
+  def delete
+    db.query("
+      DELETE FROM dogs
+      WHERE id= '#{self.id};
+      ")
+  end
   def self.db
     @@db
   end
@@ -50,6 +55,10 @@ end
  
 dog1 = Dog.new('awesome', 'lightbrown')
 dog1.insert
+dog1.update
+debugger
+
+dog1.delete
 dog = Dog.find(1)
 debugger
 puts 'hi'
