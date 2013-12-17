@@ -10,13 +10,42 @@ class Dog
     @color = color
   end
 
-  def self.find(id)
-    db.query("SELECT")
+  def insert 
+    db.query("
+      INSERT 
+      INTO dogs (name, color)
+      VALUES ('#{self.name}', '#{self.color}');
+      ")
+      
   end
+
+
+  def self.find(id)
+    db.query("
+      SELECT *
+      FROM dogs
+      WHERE id = #{id}
+      ")
+  end
+
+  def update
+  
+  end
+
+  def self.db
+    @@db
+  end
+
+  def db
+    @@db
+  end
+
 
 end
  
-dog = Dog.find(10)
+dog1 = Dog.new('awesome', 'lightbrown')
+dog1.insert
+dog = Dog.find(1)
 debugger
 puts 'hi'
  
